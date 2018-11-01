@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.admin.frameworkdemo">
 
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -18,6 +20,13 @@
         </activity>
         <activity android:name=".Rxjava.RxjavaTestActivity"></activity>
         <activity android:name=".GreenDao.GreenDaoTestActivity"></activity>
+        <activity android:name=".Picasso.PicassoMainActivity"></activity>
+        <activity android:name=".Picasso.ListViewActivity"></activity>
+        <activity android:name=".RecycleView.RecycleviewTestActivity"></activity>
+        <activity android:name=".SelfdefineView.SelfdefineViewMainActivity"></activity>
+        <activity android:name=".PaseXML.PaseXmlTestActivity"></activity>
+        <activity android:name=".DrawSigpanel.DrawSigpanelTest1Activity"></activity>
+        <activity android:name=".DrawSigpanel.DrawSigpanelMainActivity"></activity>
     </application>
 
 

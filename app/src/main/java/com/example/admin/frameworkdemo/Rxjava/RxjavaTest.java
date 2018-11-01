@@ -71,7 +71,6 @@ public class RxjavaTest {
 
 
     public void SingleTest(){
-        Log.d(TAG, "SingleTest");
     }
 
     public void CompletableTest(){

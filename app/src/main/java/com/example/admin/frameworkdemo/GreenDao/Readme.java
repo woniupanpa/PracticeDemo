@@ -1,6 +1,6 @@
 package com.example.admin.frameworkdemo.GreenDao;
 
-public class readme {
+public class Readme {
     /*
 说明：
 1：https://www.cnblogs.com/wnpp/articles/7906187.html
