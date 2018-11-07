@@ -1,0 +1,3 @@
+1:参考：https://www.cnblogs.com/wnpp/articles/9190762.html
+代码鸿洋：https://blog.csdn.net/lmj623565791/article/details/40794879
+2:配置：implementation 'de.greenrobot:eventbus:2.4.0'

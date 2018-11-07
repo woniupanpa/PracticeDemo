@@ -1,0 +1,5 @@
+1：参考：https://blog.csdn.net/u012702547/article/details/49562747
+2：FragmentActivity改为AppCompatActivity
+getActionBar().hide()改为getSupportActionBar().hide()
+否则会报：java.lang.NullPointerException: Attempt to invoke virtual method
+‘void android.app.ActionBar.hide()’ on a null object reference

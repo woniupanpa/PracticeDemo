@@ -1,0 +1,15 @@
+1：参考：
+2：如何生成aidl文件，app右键生成,会自动在java同目录下生成aidl目录
+3：生成了aild.java文件位置：app-->build-->generated-->source--aidl-->debug
+4：注意：客户端项目新建的aidl要和之前项目的aidl包名以及文件内容要一模一样，
+   所以这时不能右键新建AIDL file了（因为，这样默认的包名是当前项目的包名，
+   和之前的aidl的文件的package是不符的）。因此要：新建一个包，名字和上面项目
+   Aidl所在的包名一致把上面那个项目的aidl文件直接拷到这个包里面Clean Project ，
+   自动生成相应的java文件
+5:<service android:name="com.example.admin.frameworkdemo.Service.AidlService" >
+              <intent-filter>
+                  <action android:name="android.intent.action.AIDLService" />
+                  <category android:name="android.intent.category.DEFAULT" />
+              </intent-filter>
+          </service>
+6:client端调用的时候，setPackage调用的是service端的程序的包名，而不是service的所在对的包名

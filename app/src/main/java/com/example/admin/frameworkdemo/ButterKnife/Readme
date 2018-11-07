@@ -1,0 +1,6 @@
+1:参考：https://www.cnblogs.com/cnwutianhao/p/6610529.html
+2:报错：Could not get unknown property 'packageForR' for task ':app:processDebugResour
+参考：https://blog.csdn.net/qq_31852701/article/details/80312719
+3：无法下载ButterKnife插件：打开settings->system settings->updata，
+下面的Use secure Connetion去掉,貌似因为使用了https协议下载导致的问题
+4：必须把鼠标移到R.layout.butterknife_activity_main才会有右键出现Butterknife injections
