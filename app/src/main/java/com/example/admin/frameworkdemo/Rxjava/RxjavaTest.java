@@ -324,7 +324,7 @@ public class RxjavaTest {
         Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
-                Log.d(TAG, "执行这个。。。");
+                Log.d(TAG, "执行这个");
                 emitter.onError(new Throwable("出错了"));
             }
         });
