@@ -17,16 +17,16 @@ import android.util.Log;
 import com.example.admin.frameworkdemo.R;
 
 public class CircleImageView extends android.support.v7.widget.AppCompatImageView {
-    //ÍâÔ²µÄ¿í¶È
+    //å¤–åœ†çš„å®½åº¦
     private int outCircleWidth;
 
-    //ÍâÔ²µÄÑÕÉ«
+    //å¤–åœ†çš„é¢œè‰²
     private int outCircleColor = Color.BLUE;
 
-    //»­±Ê
+    //ç”»ç¬”
     private Paint paint;
 
-    //viewµÄ¿í¶ÈºÍ¸ß¶È
+    //viewçš„å®½åº¦å’Œé«˜åº¦
     private int viewWidth;
     private int viewHeigth;
 
@@ -49,7 +49,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     }
 
     /**
-     * ³õÊ¼»¯×ÊÔ´ÎÄ¼ş
+     * åˆå§‹åŒ–èµ„æºæ–‡ä»¶
      *
      * @param context
      * @param attrs
@@ -58,24 +58,24 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     private void initAttrs(Context context, AttributeSet attrs, int defStyleAttr) {
         TypedArray array = null;
         if (attrs != null) {
-            //µÚ¶ş¸ö²ÎÊı¾ÍÊÇÎÒÃÇÔÚstyles.xmlÎÄ¼şÖĞµÄ<declare-styleable>±êÇ©
-            //¼´ÊôĞÔ¼¯ºÏµÄ±êÇ©£¬ÔÚRÎÄ¼şÖĞÃû³ÆÎªR.styleable+name
+            //ç¬¬äºŒä¸ªå‚æ•°å°±æ˜¯æˆ‘ä»¬åœ¨styles.xmlæ–‡ä»¶ä¸­çš„<declare-styleable>æ ‡ç­¾
+            //å³å±æ€§é›†åˆçš„æ ‡ç­¾ï¼Œåœ¨Ræ–‡ä»¶ä¸­åç§°ä¸ºR.styleable+name
             array = context.obtainStyledAttributes(attrs, R.styleable.CircleImageView);
 
             int len = array.length();
 
-            //µÚÒ»¸ö²ÎÊıÎªÊôĞÔ¼¯ºÏÀïÃæµÄÊôĞÔ£¬RÎÄ¼şÃû³Æ£ºR.styleable+ÊôĞÔ¼¯ºÏÃû³Æ+ÏÂ»®Ïß+ÊôĞÔÃû³Æ
-            //µÚ¶ş¸ö²ÎÊıÎª£¬Èç¹ûÃ»ÓĞÉèÖÃÕâ¸öÊôĞÔ£¬ÔòÉèÖÃµÄÄ¬ÈÏµÄÖµ
+            //ç¬¬ä¸€ä¸ªå‚æ•°ä¸ºå±æ€§é›†åˆé‡Œé¢çš„å±æ€§ï¼ŒRæ–‡ä»¶åç§°ï¼šR.styleable+å±æ€§é›†åˆåç§°+ä¸‹åˆ’çº¿+å±æ€§åç§°
+            //ç¬¬äºŒä¸ªå‚æ•°ä¸ºï¼Œå¦‚æœæ²¡æœ‰è®¾ç½®è¿™ä¸ªå±æ€§ï¼Œåˆ™è®¾ç½®çš„é»˜è®¤çš„å€¼
             for (int i = 0; i < len; i++) {
                 int attr = array.getIndex(i);
                 switch (attr) {
-                    //»ñÈ¡µ½ÍâÔ²µÄÑÕÉ«
+                    //è·å–åˆ°å¤–åœ†çš„é¢œè‰²
                     case R.styleable.CircleImageView_outCircleColor:
                         this.outCircleColor = array.getColor(attr, Color.WHITE);
                         break;
-                    //»ñÈ¡µ½ÍâÔ²µÄ°ë¾¶
+                    //è·å–åˆ°å¤–åœ†çš„åŠå¾„
                     case R.styleable.CircleImageView_outCircleWidth:
-                        //getDimensionPixelSize·µ»ØµÄÖµÊÇXMLÀïÃæÉèÖÃµÄÖµ³ËÒÔÆÁÄ»ÃÜ¶È
+                        //getDimensionPixelSizeè¿”å›çš„å€¼æ˜¯XMLé‡Œé¢è®¾ç½®çš„å€¼ä¹˜ä»¥å±å¹•å¯†åº¦
                         this.outCircleWidth = (int) array.getDimensionPixelSize(attr, 50);
                         Log.d("yjm", "outCircleWidth--->"+outCircleWidth);
                         break;
@@ -83,43 +83,47 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
             }
         }
         paint = new Paint();
-        paint.setColor(outCircleColor);//ÑÕÉ«
-        paint.setAntiAlias(true);//ÉèÖÃ¿¹¾â³İ
-        array.recycle();  //»ØÊÕ
+        paint.setColor(outCircleColor);//é¢œè‰²
+        paint.setAntiAlias(true);//è®¾ç½®æŠ—é”¯é½¿
+        array.recycle();  //å›æ”¶
     }
 
     /**
-     * viewµÄ²âÁ¿
+     * viewçš„æµ‹é‡
      * @param widthMeasureSpec
      * @param heightMeasureSpec
      */
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 
+
         int width = measureWith(widthMeasureSpec);
         int height = measureWith(heightMeasureSpec);
+        Log.d("yjm", "width--->" + width);
+        Log.d("yjm", "height--->" + height);
 
-        //viewWith=616,  width=656   
+        //viewWith=616,  width=656
         //viewHegth=1030   heigth=1070
         viewWidth = width - outCircleWidth * 2;
         viewHeigth = height - outCircleWidth * 2;
 
-        //µ÷ÓÃ¸Ã·½·¨½«²âÁ¿ºóµÄ¿íºÍ¸ßÉèÖÃ½øÈ¥£¬Íê³É²âÁ¿¹¤×÷£¬
+        //è°ƒç”¨è¯¥æ–¹æ³•å°†æµ‹é‡åçš„å®½å’Œé«˜è®¾ç½®è¿›å»ï¼Œå®Œæˆæµ‹é‡å·¥ä½œï¼Œ
         setMeasuredDimension(width, height);
     }
 
     /**
-     * ²âÁ¿¿íºÍ¸ß£¬ÕâÒ»¿é¿ÉÒÔÊÇÒ»¸öÄ£°å´úÂë(AndroidÈºÓ¢´«)
+     * æµ‹é‡å®½å’Œé«˜ï¼Œè¿™ä¸€å—å¯ä»¥æ˜¯ä¸€ä¸ªæ¨¡æ¿ä»£ç (Androidç¾¤è‹±ä¼ )
      * @param widthMeasureSpec
      * @return
      */
     private int measureWith(int widthMeasureSpec) {
         int result = 0;
-        //´ÓMeasureSpec¶ÔÏóÖĞÌáÈ¡³öÀ´¾ßÌåµÄ²âÁ¿Ä£Ê½ºÍ´óĞ¡
+        //ä»MeasureSpecå¯¹è±¡ä¸­æå–å‡ºæ¥å…·ä½“çš„æµ‹é‡æ¨¡å¼å’Œå¤§å°
         int mode = MeasureSpec.getMode(widthMeasureSpec);
         int size = MeasureSpec.getSize(widthMeasureSpec);
+        //Log.d("yjm", "size--->" + size);
         if (mode == MeasureSpec.EXACTLY) {
-            //²âÁ¿µÄÄ£Ê½£¬¾«È·
+            //æµ‹é‡çš„æ¨¡å¼ï¼Œç²¾ç¡®
             result = size;
         } else {
             result = viewWidth;
@@ -128,26 +132,26 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     }
 
     /**
-     * »æÖÆ
+     * ç»˜åˆ¶
      * @param canvas
      */
     @Override
     protected void onDraw(Canvas canvas) {
-        //¼ÓÔØÍ¼Æ¬
+        //åŠ è½½å›¾ç‰‡
         loadImage();
 
         if (image != null) {
-            //ÄÃµ½×îĞ¡µÄÖµ(ÕâÀïÎÒÃÇÒªÈ¡µ½×îĞ¡µÄ)
+            //æ‹¿åˆ°æœ€å°çš„å€¼(è¿™é‡Œæˆ‘ä»¬è¦å–åˆ°æœ€å°çš„)
             int min = Math.min(viewWidth, viewHeigth);
 
             int circleCenter = min / 2;
 
             image = Bitmap.createScaledBitmap(image, min, min, false);
 
-            //»­Ô²,²ÎÊı£ºÔ²ĞÄX£¬ Ô²ĞÄy£¬°ë¾¶£¬»­±Ê
+            //ç”»åœ†,å‚æ•°ï¼šåœ†å¿ƒXï¼Œ åœ†å¿ƒyï¼ŒåŠå¾„ï¼Œç”»ç¬”
             canvas.drawCircle(circleCenter + outCircleWidth, circleCenter + outCircleWidth, circleCenter + outCircleWidth, paint);
 
-            //»­Í¼Ïñ
+            //ç”»å›¾åƒ
             canvas.drawBitmap(createCircleBitmap(image, min), outCircleWidth, outCircleWidth, null);
         }
 
@@ -155,9 +159,9 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     }
 
     /**
-     * ´´½¨Ò»¸öÔ²ĞÎµÄbitmap
+     * åˆ›å»ºä¸€ä¸ªåœ†å½¢çš„bitmap
      *
-     * @param image  ´«ÈëµÄimage
+     * @param image  ä¼ å…¥çš„image
      * @param min
      * @return
      */
@@ -172,7 +176,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
 
         Canvas canvas = new Canvas(bitmap);
 
-        //»­Ò»¸öºÍÍ¼Æ¬´óĞ¡ÏàµÈµÄ»­²¼
+        //ç”»ä¸€ä¸ªå’Œå›¾ç‰‡å¤§å°ç›¸ç­‰çš„ç”»å¸ƒ
         canvas.drawCircle(min / 2, min / 2, min / 2, paint);
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 
@@ -183,10 +187,10 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     }
 
     /**
-     * ¼ÓÔØImage
+     * åŠ è½½Image
      */
     private void loadImage() {
-        //Í¨¹ıXMLÀïÃæµÄandroid:src»ñÈ¡
+        //é€šè¿‡XMLé‡Œé¢çš„android:srcè·å–
         BitmapDrawable bitmapDrawable = (BitmapDrawable) this.getDrawable();
 
         if (bitmapDrawable != null) {
@@ -196,7 +200,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     }
 
     /**
-     * ¶ÔÍâÌá¹©µÄ¿ÉÒÔÉèÖÃÍâÔ²µÄÑÕÉ«µÄ·½·¨
+     * å¯¹å¤–æä¾›çš„å¯ä»¥è®¾ç½®å¤–åœ†çš„é¢œè‰²çš„æ–¹æ³•
      * @param outCircleColor
      */
     public void setOutCircleColor(int outCircleColor) {
@@ -207,7 +211,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     }
 
     /**
-     * ¶ÔÍâÌá¹©¸øµÄÉèÖÃÍâÔ²µÄ¿í¶È´óĞ¡µÄ·½·¨
+     * å¯¹å¤–æä¾›ç»™çš„è®¾ç½®å¤–åœ†çš„å®½åº¦å¤§å°çš„æ–¹æ³•
      * @param outCircleWidth
      */
     public void setOutCircleWidth(int outCircleWidth) {

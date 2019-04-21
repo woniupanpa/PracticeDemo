@@ -30,6 +30,9 @@ android {
         schemaVersion 1
         targetGenDir 'src/main/java'
     }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
@@ -64,8 +67,11 @@ dependencies {
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.5.4'
 
     /************ Retrofit **************/
-    implementation 'com.squareup.okhttp3:okhttp:3.2.0'
+    implementation 'com.squareup.okhttp3:okhttp:3.7.0'
     implementation 'com.squareup.retrofit2:retrofit:2.0.0-beta4'
     implementation 'com.google.code.gson:gson:2.6.2'
+
+    /************ Glide **************/
+    implementation 'com.github.bumptech.glide:glide:3.7.0'
 
 }

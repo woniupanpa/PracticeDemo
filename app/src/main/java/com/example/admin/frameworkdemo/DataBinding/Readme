@@ -1,0 +1,22 @@
+1:参考博客
+https://www.jianshu.com/p/572822d9eff9
+2：databinding配置：
+android {
+    …
+    dataBinding {
+        enabled = true
+    }
+}
+3:dataBinding找不到对应的类，XML配置完成之后，要clean然后rebuild才可以
+
+4:<data>
+<variable
+name="user1"
+type="com.example.admin.frameworkdemo.DataBinding.User"/>
+
+<variable
+name="listener"
+type="android.view.View.OnClickListener"/>
+</data>
+
+name和type里面的名字不能一样，否则会无法setUser

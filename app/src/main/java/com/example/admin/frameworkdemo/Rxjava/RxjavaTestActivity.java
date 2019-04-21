@@ -23,7 +23,8 @@ compileOptions {
  */
 
 public class RxjavaTestActivity extends AppCompatActivity implements AdapterView.OnItemClickListener{
-    private String[] data = { "Observable", "Single", "Completable", "Complicated" };
+    private String[] data = { "Observable", "Single", "Completable", "Complicated", "addThenTest",
+            "flatMap", "zipWithTest", "retryTest", "retryWhen", "switchIfEmpty", "contactMap"};
     private RxjavaTest rxjavaTest;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +48,20 @@ public class RxjavaTestActivity extends AppCompatActivity implements AdapterView
             rxjavaTest.CompletableTest();
         }else if(3 == id){
             rxjavaTest.ComplicatedTest();
+        }else if(4 == id){
+            rxjavaTest.andThenTesst();
+        }else if(5 == id){
+            rxjavaTest.flatmapTest();
+        }else if(6 == id){
+            rxjavaTest.zipWithTest();
+        }else if(7 == id){
+            rxjavaTest.retryTest();
+        }else if(8 == id){
+            rxjavaTest.retryWhenTest();
+        }else if(9 == id){
+            rxjavaTest.switchIfEmptyTest();
+        }else if(10 == id){
+            rxjavaTest.contactMapTest();
         }
     }
 }

@@ -1,0 +1,30 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.admin.frameworkdemo.ViewGroupSelfDef.SelfeDefViewGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="80dp"
+            android:text="1" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="80dp"
+            android:text="2" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="80dp"
+            android:text="3" />
+
+        <Button
+            android:layout_width="50dp"
+            android:layout_height="80dp"
+            android:text="4" />
+
+    </com.example.admin.frameworkdemo.ViewGroupSelfDef.SelfeDefViewGroup>
+</LinearLayout>

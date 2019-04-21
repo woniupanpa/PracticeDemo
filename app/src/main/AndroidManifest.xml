@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.admin.frameworkdemo">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.example.admin.frameworkdemo.MyApplication"
@@ -20,6 +20,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".Rxjava.RxjavaTestActivity"></activity>
+        <activity android:name=".DataBinding.DataBindingActivity"></activity>
         <activity android:name=".GreenDao.GreenDaoTestActivity"></activity>
         <activity android:name=".Picasso.PicassoMainActivity"></activity>
         <activity android:name=".Picasso.ListViewActivity"></activity>
@@ -40,15 +41,36 @@
         <activity android:name=".AidlService.ServiceMainActivity"></activity>
         <activity android:name=".Service.ServiceTestActivity"></activity>
         <activity android:name=".ScrollerView.ScrollerMainActivity"></activity>
+        <activity android:name=".ViewPager.ViewPagerMainActivity"></activity>
+        <activity android:name=".Dispatch.DispatchMainActivity"></activity>
+        <activity android:name=".LaunchMode.SecondActivity"></activity>
+        <activity android:name=".ObserverModel.ObserverMainActivity"></activity>
+        <activity android:name=".ProxyModel.ProxyMainActivity"></activity>
+        <activity android:name=".Reflect.ReflectMainActivity"></activity>
+        <activity android:name=".StrategyModel.StrategyMainActivity"></activity>
+        <activity android:name=".ThreadPool.ThreadPoolMainActivity"></activity>
+        <activity android:name=".ViewGroupSelfDef.ViewGroupSelfDefMainActivity"></activity>
+        <activity android:name=".Annotation.AnnotationMainActivity"></activity>
+        <activity android:name=".ActivityTest.ActivityTestMainActivity"></activity>
+        <activity android:name=".ActivityTest.Activity2"
+            android:theme="@android:style/Theme.Translucent"></activity>
+        <activity android:name=".Parcelable.ParcelableMainActivity"></activity>
+        <activity android:name=".Parcelable.ParcelableActivity2"></activity>
+        <activity android:name=".ConstraintLayout.ConstraintLayoutActivity"></activity>
 
-        <service android:name="com.example.admin.frameworkdemo.AidlService.AidlService" >
+
+        <activity
+            android:name=".LaunchMode.LaunchMainActivity"
+            android:launchMode="singleInstance"></activity>
+
+        <service android:name="com.example.admin.frameworkdemo.AidlService.AidlService">
             <intent-filter>
                 <action android:name="android.intent.action.AIDLService" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </service>
-        <service android:name="com.example.admin.frameworkdemo.Service.MyService" >
-        </service>
+        <service android:name="com.example.admin.frameworkdemo.Service.MyService"></service>
+                 <!--android:process="com.example.admin.frameworkdemo.yourservice"-->
     </application>
 
 

@@ -1,0 +1,12 @@
+1:https://www.cnblogs.com/fansen/p/5667450.html
+2:Activity可见但是失去焦点的时候，会调用onPause,但是dialog不会调用，被另外一个
+    透明或者dialog样式的Activity调用的时候才会执行onPause
+3:onSaveInstance:用户主动销毁不会调用 : 当用户点击回退键 或者 调用了 finish() 方法, 不会调用该方法;
+调用时机 : Activity 容易被销毁的时候调用, 注意是容易被销毁, 也可能没有销毁就调用了;
+按下Home键 : Activity 进入了后台, 此时会调用该方法;
+按下电源键 : 屏幕关闭, Activity 进入后台;
+启动其它 Activity : Activity 被压入了任务栈的栈底;
+横竖屏切换 : 会销毁当前 Activity 并重新创建;
+https://blog.csdn.net/bestchenq/article/details/51510984
+4:横竖屏幕切换的时候，android:configChanges="orientation|keyboardHidden|screenSize"，
+   设置不会调用各个生命周期，只会调用onConfigurationChanged.

@@ -1,0 +1,3 @@
+1:参考：https://blog.csdn.net/suyimin2010/article/details/80659993
+2:FragmentViewPager + TagLayout:https://blog.csdn.net/wanxiaofan/article/details/76185505
+3:getSupportFragmentManager无法使用的时候，Activity改为AppCompatActivity
