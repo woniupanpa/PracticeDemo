@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context="com.example.admin.frameworkdemo.DataBinding.DataBindingActivity">
 
     <data>
         <variable
             name="user1"
             type="com.example.admin.frameworkdemo.DataBinding.User"/>
-
         <variable
             name="listener"
             type="android.view.View.OnClickListener"/>
+        <import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+        <import type="android.view.View" />
+        <import type="com.example.admin.frameworkdemo.R"/>
     </data>
 
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
-        tools:context="com.example.admin.frameworkdemo.DataBinding.DataBindingActivity"
         android:gravity="center_horizontal">
 
         <TextView
@@ -74,5 +76,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="绑定RecyclerView使用"/>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/layout_subitem"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp"
+            app:itemBinding="@{user1.stringItemBinding}"
+            app:items="@{user1.student}"
+            app:layoutManager="@{LayoutManagers.grid(2)}" />
     </LinearLayout>
 </layout>

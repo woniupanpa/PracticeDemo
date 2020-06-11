@@ -32,16 +32,21 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
 
     private Bitmap image;
 
+    //1:在代码中直接new一个CircleImageView实例的时候,会调用第一个构造函数.这个没有任何争议.
     public CircleImageView(Context context) {
         super(context);
         Log.d("yjm", "aaaaaaaaa");
         // TODO Auto-generated constructor stub
     }
 
+    //2:在xml布局文件中调用CircleImageView的时候,会调用第二个构造函数.这个也没有争议
+    //3:在xml布局文件中调用CircleImageView,并且CircleImageView标签中还有自定义属性时,这里调用的还是第二个构造函数
     public CircleImageView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
+    //也就是说,系统默认只会调用CircleImageView的前两个构造函数,至于第三个构造函数的调用,
+    // 通常是我们自己在构造函数中主动调用的（例如,在第二个构造函数中调用第三个构造函数
     public CircleImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         Log.d("yjm", "bbbbbbbbb");
@@ -104,7 +109,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
 
         //viewWith=616,  width=656
         //viewHegth=1030   heigth=1070
-        viewWidth = width - outCircleWidth * 2;
+        viewWidth = width - outCircleWidth * 2;//viewWidth内圆直径
         viewHeigth = height - outCircleWidth * 2;
 
         //调用该方法将测量后的宽和高设置进去，完成测量工作，
@@ -144,7 +149,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
             //拿到最小的值(这里我们要取到最小的)
             int min = Math.min(viewWidth, viewHeigth);
 
-            int circleCenter = min / 2;
+            int circleCenter = min / 2;//内圆半径
 
             image = Bitmap.createScaledBitmap(image, min, min, false);
 
@@ -165,6 +170,8 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
      * @param min
      * @return
      */
+    //bitmap和Canvas关系的理解：
+    // https://blog.csdn.net/xg1057415595/article/details/82885448
     private Bitmap createCircleBitmap(Bitmap image, int min) {
 
         Bitmap bitmap = null;
@@ -174,14 +181,19 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
         paint.setAntiAlias(true);
         bitmap = Bitmap.createBitmap(min, min, Bitmap.Config.ARGB_8888);
 
-        Canvas canvas = new Canvas(bitmap);
+        Canvas canvas = new Canvas(bitmap);//Canvas只负责操作，实际的东西还是在bitmap里面
 
         //画一个和图片大小相等的画布
         canvas.drawCircle(min / 2, min / 2, min / 2, paint);
+        //PorterDuff.Mode.SRC_IN只在源图像和目标图像相交的地方绘制【源图像】
+        //参考：https://www.cnblogs.com/libertycode/p/6290497.html
         paint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_IN));
 
         canvas.drawBitmap(image, 0, 0, paint);
 
+        //Canvas构造函数需要传入一个Bitmap，该bitmap是我们对canvas进行操作的载体，
+        // 比如调用canvas的drawLine方法画一条线，将会把线画到bitmap里去。
+        // Canvas直接对该Bitmap对象进行修改，Bitmap保存我们的操作。
 
         return bitmap;
     }
@@ -218,5 +230,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
         this.outCircleWidth = outCircleWidth;
         this.invalidate();
     }
+
+
 
 }

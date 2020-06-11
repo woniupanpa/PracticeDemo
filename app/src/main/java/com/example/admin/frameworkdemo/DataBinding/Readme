@@ -20,3 +20,19 @@ type="android.view.View.OnClickListener"/>
 </data>
 
 name和type里面的名字不能一样，否则会无法setUser
+
+4:itembinding:简化你的列表Adapter
+https://www.jianshu.com/p/8e6c7ecedf74
+
+5:要使用app:layoutManager，需在头部引入：<import type="me.tatarka.bindingcollectionadapter2.LayoutManagers" />
+
+6：要使用ReplyCommand：MVVM Light Toolkit使用指南
+https://www.jianshu.com/p/43ea7a531700
+添加这个的时候可能会报错，gradle添加packagingOptions
+packagingOptions {
+        exclude 'android/databinding/DataBinderMapper.java'
+        exclude 'android/databinding/DataBindingComponent.java'
+        exclude 'android/databinding/DynamicUtil.java'
+        exclude 'META-INF/rxjava.properties'
+    }
+

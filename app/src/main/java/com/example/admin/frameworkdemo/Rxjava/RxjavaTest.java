@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
+import org.reactivestreams.Publisher;
 import org.reactivestreams.Subscriber;
 
 import java.util.ArrayList;
@@ -14,6 +15,7 @@ import io.reactivex.Completable;
 import io.reactivex.CompletableEmitter;
 import io.reactivex.CompletableObserver;
 import io.reactivex.CompletableOnSubscribe;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
 import io.reactivex.ObservableOnSubscribe;
@@ -29,6 +31,8 @@ import io.reactivex.schedulers.Schedulers;
 public class RxjavaTest {
     private Context context;
     private final static String TAG = RxjavaTest.class.getSimpleName();
+    private Disposable retryDispose;
+    private int count = 1;
 
     public RxjavaTest(Context mContext) {
         context = mContext;
@@ -105,12 +109,12 @@ public class RxjavaTest {
             e.printStackTrace();
         }
         return Completable.complete();*/
-       return Completable.complete()
-               .observeOn(Schedulers.newThread());
+        return Completable.complete()
+                .observeOn(Schedulers.newThread());
     }
 
     public Completable andThen2() {
-        Log.d(TAG, "andThen2Thread--->"+Thread.currentThread().getName());
+        Log.d(TAG, "andThen2Thread--->" + Thread.currentThread().getName());
         try {
             Thread.sleep(3000);
         } catch (InterruptedException e) {
@@ -126,16 +130,16 @@ public class RxjavaTest {
                 .observeOn(AndroidSchedulers.mainThread())*/
                 //.observeOn(Schedulers.newThread())
                 .doOnComplete(() -> {
-                    Log.d(TAG, "doOncompelteThread1--->"+Thread.currentThread().getName());
+                    Log.d(TAG, "doOncompelteThread1--->" + Thread.currentThread().getName());
 
                     Log.d(TAG, "andComplete1");
                 })
                 .andThen(andThen2())
                 .doOnComplete(() -> {
-                    Log.d(TAG, "doOncompelteThread2--->"+Thread.currentThread().getName());
+                    Log.d(TAG, "doOncompelteThread2--->" + Thread.currentThread().getName());
                     Log.d(TAG, "andComplete2");
                 }).subscribe(() -> {
-                    Log.d(TAG, "andComplete3");
+            Log.d(TAG, "andComplete3");
         });
     }
 
@@ -329,7 +333,14 @@ public class RxjavaTest {
             }
         });
 
-        observable.retryWhen(throwableObservable -> {
+        observable
+                //.retryWhen(throwableObservable -> doRetry(throwableObservable, 5))
+                .retryWhen(throwableObservable -> {
+                    return doRetry(throwableObservable, 5);
+                })
+                .subscribe(observer);
+
+       /* observable.retryWhen(throwableObservable -> {
             return throwableObservable.zipWith(Observable.range(3, 3), (throwable, integer) -> {
                 return integer;
             }).flatMap(integer -> {
@@ -337,17 +348,103 @@ public class RxjavaTest {
                 Log.i(TAG, "延迟" + integer + "秒");
                 return Observable.timer(integer, TimeUnit.SECONDS);
             });
-        }).subscribe(observer);
+        }).subscribe(observer);*/
 
-
+        /*Completable.complete()
+                .doOnComplete(()->{
+                    Log.d(TAG, "retryWhenStart--->");
+                })
+                .andThen(retryWehnTest1())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSubscribe(disposable -> {
+                    retryDispose = disposable;
+                })
+                .subscribe(()->{
+                    Log.d(TAG, "retryWhenSuccess--->");
+                },throwable -> {
+                    Log.d(TAG, "retryWhenError--->");
+                });*/
     }
 
-    public void contactMapTest(){
+    private Observable doRetry(Observable<Throwable> throwableObservable, int retryTimes) {
+        return throwableObservable
+                .zipWith(Observable.range(1, retryTimes + 1), (throwable, retryCount) -> {
+                    Log.d(TAG, "in zip:" + retryCount);
+                    return delayAndCheckCancel(5, 1)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnComplete(() -> {
+                                Log.d(TAG, "retry again" + retryCount);
+                            });
+                })
+                //.flatMap(x -> x);
+        .flatMap(x->{
+            return x;
+           // return Observable.just(x);
+        });
+    }
+
+    private Observable delayAndCheckCancel(int timeout, int period) {
+        Log.d(TAG, "delayAndCheckCancel" + timeout);
+        if (timeout <= 0) {
+            return Observable.just(timeout);
+        }
+
+        return Observable.timer(period, TimeUnit.SECONDS)
+                .flatMap(time -> {
+                    return delayAndCheckCancel(timeout - period, period);
+                });
+    }
+
+    public Completable retryWehnTest1() {
+        return Completable.complete()
+                .andThen(retryWehnTest2())
+                .andThen(getSingleTest())
+                .flatMapCompletable(integer -> {
+                    Log.d(TAG, "retryWehnTest1--->" + "11111111111");
+                    return Completable.error(new Throwable("error"));
+                }).retryWhen(throwableFlowable -> throwableFlowable.flatMap(throwable -> handleError(throwable)));
+    }
+
+    public Completable retryWehnTest2() {
+        return Completable.fromCallable(() -> {
+            Log.d(TAG, "wwwwwwwwwww" + count);
+            return Completable.complete();
+        });
+    }
+
+    public Single<Integer> getSingleTest() {
+        return Single.fromCallable(() -> {
+            count++;
+            if (count == 5) {
+                retryDispose.dispose();
+                count = 0;
+            }
+            Thread.sleep(1500);
+            Log.d(TAG, "qqqqqqqqqqqqqqqqq" + count);
+            return 1;
+        });
+    }
+
+    public Single<Integer> getSingleTest2() {
+        return Single.fromCallable(() -> {
+            Thread.sleep(1000);
+            Log.d(TAG, "wwwwwwwwwwwww");
+            return 1;
+        });
+    }
+
+    private Publisher<Integer> handleError(Throwable e) {
+        //Timber.e(">>>>>>>>>>>>>> retry");
+        return Flowable.just(0);
+    }
+
+    public void contactMapTest() {
         Observable.just("1", "2", "3").concatMap(s -> {
-            Log.d(TAG, "this is my house"+s);
-            return Observable.just(s+"#");
-        }).subscribe(s->{
-            Log.d(TAG, "why I am here"+s);
+            Log.d(TAG, "this is my house" + s);
+            return Observable.just(s + "#");
+        }).subscribe(s -> {
+            Log.d(TAG, "why I am here" + s);
         });
     }
 

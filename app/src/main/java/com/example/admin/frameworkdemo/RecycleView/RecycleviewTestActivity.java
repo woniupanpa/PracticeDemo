@@ -38,9 +38,9 @@ public class RecycleviewTestActivity extends Activity {
         mRecyclerView = (RecyclerView) findViewById(R.id.id_recyclerview);
         mRecyclerView.setAdapter(mAdapter = new HomeAdapter());
         //垂直
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+       /* mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL_LIST));
+                DividerItemDecoration.VERTICAL_LIST));*/
 
         mAdapter.setItemOnClickListener(new MyItemOnclickListener() {
             @Override
@@ -58,8 +58,8 @@ public class RecycleviewTestActivity extends Activity {
         mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));*/
 
         //瀑布流
-        /*mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));*/
+        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
     }
 
     protected void initData(){
@@ -70,30 +70,31 @@ public class RecycleviewTestActivity extends Activity {
         }
     }
 
-    class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.MyViewHolder>
+    class HomeAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>
     {
 
         //当RecyclerView需要一个新的类型的item的ViewHolder的时候调用这个方法
-        //是用来配合写好的ViewHolder来返回一个ViewHolder对象。这里也涉及到了条目布局的加载。viewType则表示需要给当前position生成的是哪一种ViewHolder，这个参数也说明了RecyclerView对多类型ItemView的支持。
+        //是用来配合写好的ViewHolder来返回一个ViewHolder对象。这里也涉及到了条目布局的加载。
+        // viewType则表示需要给当前position生成的是哪一种ViewHolder，
+        // 这个参数也说明了RecyclerView对多类型ItemView的支持。
         @Override
-        public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
-            MyViewHolder holder = new MyViewHolder(LayoutInflater.from(
-                    RecycleviewTestActivity.this).inflate(R.layout.recycleview_item_home, parent,
+            MyViewHolder holder = new MyViewHolder(LayoutInflater.from(RecycleviewTestActivity.this).inflate(R.layout.recycleview_item_home, parent,
                     false), mMyItemOnClickListener);
             return holder;
         }
 
         //专门用来绑定ViewHolder里的控件和数据源中position位置的数据。
         @Override
-        public void onBindViewHolder(MyViewHolder holder, int position)
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             //瀑布流在该函数里面设置随意高度
-           /* Random random = new Random();
-            ViewGroup.LayoutParams layoutParams = holder.tv.getLayoutParams();
+            Random random = new Random();
+            ViewGroup.LayoutParams layoutParams = ((MyViewHolder)holder).tv.getLayoutParams();
             layoutParams.height=random.nextInt(200)+50;
-            holder.tv.setLayoutParams(layoutParams);*/
-            holder.tv.setText(mDatas.get(position)+position);
+            ((MyViewHolder)holder).tv.setLayoutParams(layoutParams);
+            ((MyViewHolder)holder).tv.setText(mDatas.get(position)+position);
         }
 
         @Override
@@ -141,7 +142,9 @@ public class RecycleviewTestActivity extends Activity {
 
     }
 
-    //1:定义接口：在接口中，定义接口方法onItemOnClick方法，在里面实现具体的点击响应事件，同时传入两个参数：view和postion。和ListView中item的点击一样
+    //1:定义接口：在接口中，定义接口方法onItemOnClick方法，
+    // 在里面实现具体的点击响应事件，同时传入两个参数：view和postion。
+    // 和ListView中item的点击一样
     public interface MyItemOnclickListener{
         public void onItemOnclick(View view, int position);
     }

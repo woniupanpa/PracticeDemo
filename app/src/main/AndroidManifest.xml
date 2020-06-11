@@ -3,6 +3,7 @@
     package="com.example.admin.frameworkdemo">
 
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
 
     <application
         android:name="com.example.admin.frameworkdemo.MyApplication"
@@ -57,6 +58,8 @@
         <activity android:name=".Parcelable.ParcelableMainActivity"></activity>
         <activity android:name=".Parcelable.ParcelableActivity2"></activity>
         <activity android:name=".ConstraintLayout.ConstraintLayoutActivity"></activity>
+        <activity android:name=".SocketTest.SocketMainActivity"></activity>
+
 
 
         <activity

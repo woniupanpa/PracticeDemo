@@ -1,11 +1,20 @@
 package com.example.admin.frameworkdemo.DataBinding;
 
 import android.databinding.BindingAdapter;
+import android.databinding.ObservableArrayList;
+import android.databinding.ObservableList;
+import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.example.admin.frameworkdemo.BR;
+import com.example.admin.frameworkdemo.R;
+import com.kelin.mvvmlight.command.ReplyCommand;
+
+import me.tatarka.bindingcollectionadapter2.ItemBinding;
 
 public class User {
+    private static final String TAG = "DataBinding";
     private String name;
     private int age;
     private String phone;
@@ -13,12 +22,25 @@ public class User {
     //0男 1女
     private int gender;
 
+    public final ObservableList<String> student = new ObservableArrayList<>();
+    public final ItemBinding<String> stringItemBinding = ItemBinding.of(BR.item, R.layout.activity_item_binding);
+
     public User(String name, int age, String phone,String imgUrl) {
         this.name = name;
         this.age = age;
         this.phone = phone;
         this.imgUrl = imgUrl;
+        student.add("Machael");
+        student.add("Kobe");
+        student.add("Harden");
+        student.add("Curry");
+        student.add("Durrant");
+        student.add("Paul");
     }
+
+    public final ReplyCommand<Integer> onItemSelected = new ReplyCommand<>(index -> {
+            Log.d(TAG, "index--->" + index);
+    });
 
     @BindingAdapter({"imgUrl"})
     public static void loadImage(ImageView imageView, String imgUrl){
