@@ -116,6 +116,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
         setMeasuredDimension(width, height);
     }
 
+
     /**
      * 测量宽和高，这一块可以是一个模板代码(Android群英传)
      * @param widthMeasureSpec

@@ -2,14 +2,26 @@
 <resources>
 
     <declare-styleable name="CustomTitleView">
-        <attr name="titleText" format="string"/>
-        <attr name="titleTextColor" format="color"/>
-        <attr name="titleTextSize" format="dimension"/>
+        <attr name="titleText" format="string" />
+        <attr name="titleTextColor" format="color" />
+        <attr name="titleTextSize" format="dimension" />
     </declare-styleable>
 
     <declare-styleable name="CircleImageView">
-        <attr name="outCircleColor" format="color"/>
-        <attr name="outCircleWidth" format="dimension"/>
+        <attr name="outCircleColor" format="color" />
+        <attr name="outCircleWidth" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="TickView">
+        <attr name="check_base_color" format="color" />
+        <attr name="uncheck_base_color" format="color" />
+        <attr name="check_tick_color" format="color" />
+        <attr name="radius" format="dimension"/>
+        <attr name="rate">
+            <enum name="slow" value="0" />
+            <enum name="normal" value="1" />
+            <enum name="fast" value="2" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="GestureLockViewGroup">

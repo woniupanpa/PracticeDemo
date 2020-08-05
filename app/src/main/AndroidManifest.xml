@@ -27,6 +27,7 @@
         <activity android:name=".Picasso.ListViewActivity"></activity>
         <activity android:name=".RecycleView.RecycleviewTestActivity"></activity>
         <activity android:name=".SelfdefineView.SelfdefineViewMainActivity"></activity>
+        <activity android:name=".SelfdefineView.tickview.TickviewMainActivity"></activity>
         <activity android:name=".PaseXML.PaseXmlTestActivity"></activity>
         <activity android:name=".DrawSigpanel.DrawSigpanelTest1Activity"></activity>
         <activity android:name=".DrawSigpanel.DrawSigpanelMainActivity"></activity>

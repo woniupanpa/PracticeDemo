@@ -81,7 +81,7 @@ public class RxjavaTest {
             }
         };
 
-        //observable.subscribe(observer);
+        observable.subscribe(observer);
         observable.doOnSubscribe(disposable -> {
                     Log.d(TAG, "doOnSubscribe");
                 }

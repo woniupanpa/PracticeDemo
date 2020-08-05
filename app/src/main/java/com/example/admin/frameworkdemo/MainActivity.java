@@ -40,6 +40,8 @@ import com.example.admin.frameworkdemo.Rxjava.RxjavaTestActivity;
 import com.example.admin.frameworkdemo.ScrollerView.ScrollerMainActivity;
 import com.example.admin.frameworkdemo.SelfdefineView.SelfdefineViewMainActivity;
 import com.example.admin.frameworkdemo.AidlService.ServiceMainActivity;
+import com.example.admin.frameworkdemo.SelfdefineView.tickview.TickView;
+import com.example.admin.frameworkdemo.SelfdefineView.tickview.TickviewMainActivity;
 import com.example.admin.frameworkdemo.Service.ServiceTestActivity;
 import com.example.admin.frameworkdemo.SocketTest.SocketMainActivity;
 import com.example.admin.frameworkdemo.StrategyModel.StrategyMainActivity;
@@ -67,7 +69,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             "ViewPager", "Dispatch", "LaunchMode", "ObserverMode", "ProxyModel",
             "Reflect", "策略模式", "OKHttp", "ThreadPool", "ViewGroup自定义",
             "Annotation(注解)", "ActivityTest", "Parcelable序列化", "dataBinding",
-            "ConstraintLayout", "34:Socket", "35:反射＼代理模式"};
+            "ConstraintLayout", "34:Socket", "35:反射＼代理模式", "36:tickView"};
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -215,6 +217,9 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else if (35 == id) {
             proxy proxy1 = new proxy();
             proxy1.test();
+        } else if(36 == id){
+            Intent seIntent = new Intent(this, TickviewMainActivity.class);
+            startActivity(seIntent);
         }
     }
 }
