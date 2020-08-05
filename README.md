@@ -1,5 +1,5 @@
 # FrameworkDemo
-各种流行框架的demo集合</br>
+各种框架的demo集合</br>
 1：Rxjava</br>
 2：Greendao<br>
 3：Fragment<br>
