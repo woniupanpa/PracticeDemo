@@ -140,7 +140,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else if (17 == id) {//Service
             Intent myIntent = new Intent(this, ServiceTestActivity.class);
             startActivity(myIntent);
-        } else if (18 == id) {//Scrollerview
+        } else if (18 == id) {//Scrollerview 
             Intent myIntent = new Intent(this, ScrollerMainActivity.class);
             startActivity(myIntent);
         } else if (19 == id) {
