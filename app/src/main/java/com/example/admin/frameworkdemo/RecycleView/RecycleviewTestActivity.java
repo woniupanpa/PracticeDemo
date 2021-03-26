@@ -128,6 +128,7 @@ public class RecycleviewTestActivity extends Activity {
 
 
 
+
             //上面的代码就是ViewHolder，在itemView或是里面包含的子View实现setOnClickListener，
             // 在OnClick中接受接口实例化传入的具体处理事件，即mListener。在这里也能看的出来，
             // 只有viewholder中可以实现点击监听。

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.TextView;
 
+//https://blog.csdn.net/djun100/article/details/84470612?utm_medium=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control&depth_1-utm_source=distribute.pc_relevant_t0.none-task-blog-BlogCommendFromMachineLearnPai2-1.control
 public class FragmentMainActivity extends Activity implements LeftFragment.MyListener {
     private Button button01, button02;
     private Fragment fragment01;

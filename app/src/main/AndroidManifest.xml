@@ -39,6 +39,7 @@
         <activity android:name=".NavigationView.NavigationMainActivity"></activity>
         <activity android:name=".EventBus.EventBusMainActivity"></activity>
         <activity android:name=".ButterKnife.ButterKnifeMainActivity"></activity>
+        <activity android:name=".classLoader.ClassLoaderActivity"></activity>
         <activity android:name=".LeakCanary.LeakMainActivity"></activity>
         <activity android:name=".AidlService.ServiceMainActivity"></activity>
         <activity android:name=".Service.ServiceTestActivity"></activity>

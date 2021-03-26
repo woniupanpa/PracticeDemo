@@ -14,6 +14,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
     buildTypes {
         release {
@@ -88,4 +89,12 @@ dependencies {
 
     /************ MVVM Light Toolkit **************/
     implementation 'com.kelin.mvvmlight:library:1.0.0'
+
+    /***************   注解 Annotation     ************/
+    implementation 'com.google.auto.service:auto-service:1.0-rc2'
+
+    /***************   Retrofit     ************/
+    implementation 'com.squareup.retrofit2:retrofit:2.3.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.3.0'
+    implementation 'com.squareup.retrofit2:adapter-rxjava2:2.3.0'
 }

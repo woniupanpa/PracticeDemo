@@ -48,6 +48,7 @@ import com.example.admin.frameworkdemo.StrategyModel.StrategyMainActivity;
 import com.example.admin.frameworkdemo.ThreadPool.ThreadPoolMainActivity;
 import com.example.admin.frameworkdemo.ViewGroupSelfDef.ViewGroupSelfDefMainActivity;
 import com.example.admin.frameworkdemo.ViewPager.ViewPagerMainActivity;
+import com.example.admin.frameworkdemo.classLoader.ClassLoaderActivity;
 
 import java.io.File;
 import java.io.IOException;
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             "ViewPager", "Dispatch", "LaunchMode", "ObserverMode", "ProxyModel",
             "Reflect", "策略模式", "OKHttp", "ThreadPool", "ViewGroup自定义",
             "Annotation(注解)", "ActivityTest", "Parcelable序列化", "dataBinding",
-            "ConstraintLayout", "34:Socket", "35:反射＼代理模式", "36:tickView"};
+            "ConstraintLayout", "34:Socket", "35:反射＼代理模式", "36:tickView",
+            "37:classLoader"};
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -140,7 +142,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else if (17 == id) {//Service
             Intent myIntent = new Intent(this, ServiceTestActivity.class);
             startActivity(myIntent);
-        } else if (18 == id) {//Scrollerview 
+        } else if (18 == id) {//Scrollerview
             Intent myIntent = new Intent(this, ScrollerMainActivity.class);
             startActivity(myIntent);
         } else if (19 == id) {
@@ -220,6 +222,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else if(36 == id){
             Intent seIntent = new Intent(this, TickviewMainActivity.class);
             startActivity(seIntent);
+        } else if(37 == id){
+            startActivity(new Intent(this, ClassLoaderActivity.class));
         }
     }
 }

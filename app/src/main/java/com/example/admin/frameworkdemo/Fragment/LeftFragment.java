@@ -11,6 +11,7 @@ import android.widget.Button;
 
 import com.example.admin.frameworkdemo.R;
 
+
 public class LeftFragment extends Fragment
 {
     /** Acitivity要实现这个接口，这样Fragment和Activity就可以共享事件触发的资源了 */
