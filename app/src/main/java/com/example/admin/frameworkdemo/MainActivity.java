@@ -175,7 +175,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Cache cache = new Cache(cacheFile, cacheSize);
             OkHttpClient client = new OkHttpClient
                     .Builder()
-                    //.addInterceptor(new LoggingInterceptor())//日志拦截器
+                    //.addInterceptor(new LoggingInterceptor())//日志拦截器.
                     .cache(cache)
                     .build();
             Request request = new Request.Builder()
