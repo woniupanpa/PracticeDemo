@@ -61,7 +61,7 @@
         <activity android:name=".Parcelable.ParcelableActivity2"></activity>
         <activity android:name=".ConstraintLayout.ConstraintLayoutActivity"></activity>
         <activity android:name=".SocketTest.SocketMainActivity"></activity>
-
+        <activity android:name=".ui.dialog.InputPasswordDialogTestActivity"></activity>
 
 
         <activity

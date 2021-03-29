@@ -8,4 +8,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!--ActivityDialog-->
+    <style name="ActivityDialog">
+        <item name="android:windowBackground">@color/blue</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
 </resources>

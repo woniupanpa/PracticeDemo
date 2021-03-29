@@ -1,9 +1,8 @@
 package com.example.admin.frameworkdemo;
 
 import android.content.Intent;
-import android.support.design.circularreveal.CircularRevealHelper;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -11,6 +10,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.admin.frameworkdemo.ActivityTest.ActivityTestMainActivity;
+import com.example.admin.frameworkdemo.AidlService.ServiceMainActivity;
 import com.example.admin.frameworkdemo.Annotation.AnnotationMainActivity;
 import com.example.admin.frameworkdemo.ButterKnife.ButterKnifeMainActivity;
 import com.example.admin.frameworkdemo.ConstraintLayout.ConstraintLayoutActivity;
@@ -26,7 +26,6 @@ import com.example.admin.frameworkdemo.LaunchMode.LaunchMainActivity;
 import com.example.admin.frameworkdemo.LeakCanary.LeakMainActivity;
 import com.example.admin.frameworkdemo.MVPModel.MvpMainActivity;
 import com.example.admin.frameworkdemo.NavigationView.NavigationMainActivity;
-import com.example.admin.frameworkdemo.ObserverModel.Observer;
 import com.example.admin.frameworkdemo.ObserverModel.ObserverMainActivity;
 import com.example.admin.frameworkdemo.OntouchAndOngesture.OntouchAndOngestureMainActivity;
 import com.example.admin.frameworkdemo.Parcelable.ParcelableMainActivity;
@@ -39,8 +38,6 @@ import com.example.admin.frameworkdemo.Reflect.ReflectMainActivity;
 import com.example.admin.frameworkdemo.Rxjava.RxjavaTestActivity;
 import com.example.admin.frameworkdemo.ScrollerView.ScrollerMainActivity;
 import com.example.admin.frameworkdemo.SelfdefineView.SelfdefineViewMainActivity;
-import com.example.admin.frameworkdemo.AidlService.ServiceMainActivity;
-import com.example.admin.frameworkdemo.SelfdefineView.tickview.TickView;
 import com.example.admin.frameworkdemo.SelfdefineView.tickview.TickviewMainActivity;
 import com.example.admin.frameworkdemo.Service.ServiceTestActivity;
 import com.example.admin.frameworkdemo.SocketTest.SocketMainActivity;
@@ -49,11 +46,10 @@ import com.example.admin.frameworkdemo.ThreadPool.ThreadPoolMainActivity;
 import com.example.admin.frameworkdemo.ViewGroupSelfDef.ViewGroupSelfDefMainActivity;
 import com.example.admin.frameworkdemo.ViewPager.ViewPagerMainActivity;
 import com.example.admin.frameworkdemo.classLoader.ClassLoaderActivity;
+import com.example.admin.frameworkdemo.ui.dialog.InputPasswordDialogTestActivity;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.Socket;
 
 import okhttp3.Cache;
 import okhttp3.Call;
@@ -71,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             "Reflect", "策略模式", "OKHttp", "ThreadPool", "ViewGroup自定义",
             "Annotation(注解)", "ActivityTest", "Parcelable序列化", "dataBinding",
             "ConstraintLayout", "34:Socket", "35:反射＼代理模式", "36:tickView",
-            "37:classLoader"};
+            "37:classLoader", "38:inputPwdDialog"};
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -88,10 +84,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         Log.d(TAG, "id--->" + id);
-        if (0 == id) {//Rxjava
+        //Rxjava
+        if (0 == id) {
             Intent rxIntent = new Intent(this, RxjavaTestActivity.class);
             startActivity(rxIntent);
-        } else if (1 == id) {//GreenDao
+            //GreenDao
+        } else if (1 == id) {
             Intent grIntent = new Intent(this, GreenDaoTestActivity.class);
             startActivity(grIntent);
         } else if (2 == id) {//Picasso
@@ -224,6 +222,8 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(seIntent);
         } else if(37 == id){
             startActivity(new Intent(this, ClassLoaderActivity.class));
+        }else if(38 == id){
+            startActivity(new Intent(this, InputPasswordDialogTestActivity.class));
         }
     }
 }
