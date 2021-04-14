@@ -29,7 +29,7 @@ public class InputPasswordDialogTestActivity extends AppCompatActivity {
     }
 
     private void clickButton(){
-        InputPassword.inputPassword(this, "")
+        InputPassword.inputPassword(this, "", "5555")
                 .subscribe(result -> {
                     if ((Boolean) result) {
                         //this.getApplication().onTerminate();

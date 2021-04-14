@@ -17,26 +17,16 @@ import io.reactivex.Observable;
 
 // ref:https://blog.csdn.net/liang_fei_xp/article/details/77892730
 public class InputPassword extends Dialog implements View.OnClickListener {
-    public static final String DEFAULT_PWD = "0000";
-    public static final String DEVELOP_PWD = "369369";
     private TextView dspTextView;
     private TextView tipTextView;
     private String inputPwdStr = "";
     private ArrayList<String> expectPasswordList = new ArrayList<>();
     private Emitter emitter = null;
     private InputPassword inputPassword = null;
-    public boolean onlySuperAdminPassword = false;
-
-
-    public InputPassword(Context context, boolean onlySuperAdminPassword) {
-        super(context, R.style.ActivityDialog);
-        setOnlySuperAdminPassword(onlySuperAdminPassword);
-        initDilaog("");
-    }
 
     public InputPassword(Context context, String title) {
         super(context, R.style.ActivityDialog);
-        initDilaog(title);
+        initDialog(title);
     }
 
     public interface PasswordCallback {
@@ -45,17 +35,12 @@ public class InputPassword extends Dialog implements View.OnClickListener {
 
     @Override
     public void onAttachedToWindow() {
-        // FIX ISSUE #47-A8MBBMY01.23.1
-        // REF:https://blog.csdn.net/kernel_jim_wu/article/details/9415775
-        // Android 下 Dialog 及 Activity 屏蔽 Home 键
-//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
-//            this.getWindow().setType(WindowManager.LayoutParams.TYPE_KEYGUARD_DIALOG);
-//        }
         super.onAttachedToWindow();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        //Timber.d("InputPassword -> onCreate");
         super.onCreate(savedInstanceState);
     }
 
@@ -78,27 +63,7 @@ public class InputPassword extends Dialog implements View.OnClickListener {
         this.inputPassword = inputPassword;
     }
 
-    /**
-     * Init check password
-     */
-    private void initPassword() {
-        expectPasswordList.clear();
-       /* DynamicPassword dynamicPassword = new DynamicPassword();
-        if (ITMS.isAllParametersInitialized()) {
-            expectPasswordList.add(dynamicPassword.getSuperadminPassword());
-            if (!isOnlySuperAdminPassword()) {
-                expectPasswordList.add(dynamicPassword.getTechnicianPassword());
-            }
-            // FOR DEVELOP TEST
-            expectPasswordList.add(DEVELOP_PWD);
-        } else {
-            expectPasswordList.add(DEFAULT_PWD);
-        }*/
-        expectPasswordList.add(DEFAULT_PWD);
-    }
-
-    void initDilaog(String tip) {
-        initPassword();
+    void initDialog(String tip) {
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_input_password);
         setCancelable(false);
@@ -165,12 +130,8 @@ public class InputPassword extends Dialog implements View.OnClickListener {
     public void closeDialog(boolean result) {
         if (null != getInputPassword() && null != getEmitter()) {
             getInputPassword().dismiss();
-//            if(result){
             getEmitter().onNext(result);
             getEmitter().onComplete();
-//            }else{
-//                getEmitter().onError(new Throwable(ArkeApplication.getContext().getString(R.string.cancel)));
-//            }
         }
     }
 
@@ -220,14 +181,6 @@ public class InputPassword extends Dialog implements View.OnClickListener {
         dspTextView.setText(inputPwdStr);
     }
 
-    public boolean isOnlySuperAdminPassword() {
-        return onlySuperAdminPassword;
-    }
-
-    public void setOnlySuperAdminPassword(boolean onlySuperAdminPassword) {
-        this.onlySuperAdminPassword = onlySuperAdminPassword;
-    }
-
     private void clearPassword(){
         expectPasswordList.clear();
     }
@@ -237,31 +190,12 @@ public class InputPassword extends Dialog implements View.OnClickListener {
     }
 
 
-    public static Observable inputPassword(Context context, boolean onlySuperAdminPassword) {
-        return Observable.create(emitter -> {
-            InputPassword inputPasswordDialog = new InputPassword(context, onlySuperAdminPassword);
-            inputPasswordDialog.setEmitter(emitter);
-            inputPasswordDialog.setInputPassword(inputPasswordDialog);
-            inputPasswordDialog.setPasswordCallback(new PasswordCallback() {
-                @Override
-                public void callback(String password) {
-                    if (inputPasswordDialog.expectPasswordList.contains(password)) {
-                        inputPasswordDialog.closeDialog(true);
-                    } else {
-                        Toast.makeText(context, context.getString(R.string.password_error), Toast.LENGTH_SHORT).show();
-                        inputPasswordDialog.clearPasswordText();
-                    }
-                }
-            });
-            inputPasswordDialog.clearPasswordText();
-            inputPasswordDialog.show();
-        });
-    }
-
-    public static Observable inputPassword(Context context, String title) {
+    public static Observable inputPassword(Context context, String title, String password) {
         return Observable.create(emitter -> {
             InputPassword inputPasswordDialog = new InputPassword(context, title);
             inputPasswordDialog.setEmitter(emitter);
+            inputPasswordDialog.clearPassword();
+            inputPasswordDialog.addPassword(password);
             inputPasswordDialog.setInputPassword(inputPasswordDialog);
             inputPasswordDialog.setPasswordCallback(new PasswordCallback() {
                 @Override
