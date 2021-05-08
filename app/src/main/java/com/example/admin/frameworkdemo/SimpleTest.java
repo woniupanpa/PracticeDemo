@@ -11,11 +11,10 @@ import java.util.Timer;
 public class SimpleTest {
     public static void main(String[] args) {
         Test a = new Test(1, 2);
-        Log.d("test", "a--->" + a.getA() + "a--->" + a.getB());
         Test b = a;
+        System.out.println("aaaaaaaaaaaaa");
         b.setA(3);
         b.setB(4);
-        Log.d("test", "a--->" + a.getA() + "a--->" + a.getB());
     }
 
     public static class Test {

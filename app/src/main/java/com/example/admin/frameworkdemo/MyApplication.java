@@ -9,6 +9,8 @@ import com.squareup.leakcanary.LeakCanary;
 import com.squareup.leakcanary.RefWatcher;
 
 public class MyApplication extends Application {
+
+    private static Context context;
     private static final String TAG = MyApplication.class.getName();
     public static RefWatcher getRefWatcher(Context context) {
         MyApplication application = (MyApplication) context.getApplicationContext();
@@ -17,6 +19,13 @@ public class MyApplication extends Application {
 
     private RefWatcher refWatcher;
 
+    /**
+     * Get context.
+     */
+    public static Context getContext() {
+        return context;
+    }
+
     @Override public void onCreate() {
         super.onCreate();
         if (LeakCanary.isInAnalyzerProcess(this)) {
@@ -24,6 +33,7 @@ public class MyApplication extends Application {
             // You should not init your app in this process.
             return;
         }
+        initApplication();
         refWatcher = LeakCanary.install(this);
         MyApplication application = (MyApplication) getApplicationContext();
         ApplicationInfo applicationInfo = application.getApplicationInfo();
@@ -31,5 +41,14 @@ public class MyApplication extends Application {
         Log.d(TAG, "applicationInfo sourceDir---> " + applicationInfo.sourceDir);
         // 存放数据的路径  应用数据目录   /data/data/com.example.admin.frameworkdemo
         Log.d(TAG, "applicationInfo dataDir---> " + applicationInfo.dataDir);
+    }
+
+    /**
+     * Init application
+     */
+    private void initApplication() {
+        // Activate initiator
+        new Initiator().activate();
+
     }
 }
