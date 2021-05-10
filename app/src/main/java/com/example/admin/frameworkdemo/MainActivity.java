@@ -11,7 +11,6 @@ import android.widget.ListView;
 
 import com.example.admin.frameworkdemo.ActivityTest.ActivityTestMainActivity;
 import com.example.admin.frameworkdemo.AidlService.ServiceMainActivity;
-import com.example.admin.frameworkdemo.Annotation.AnnotationMainActivity;
 import com.example.admin.frameworkdemo.ButterKnife.ButterKnifeMainActivity;
 import com.example.admin.frameworkdemo.ConstraintLayout.ConstraintLayoutActivity;
 import com.example.admin.frameworkdemo.DataBinding.DataBindingActivity;
@@ -196,10 +195,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         } else if (28 == id) {
             Intent myIntent = new Intent(this, ViewGroupSelfDefMainActivity.class);
             startActivity(myIntent);
-        } else if (29 == id) {
+        }
+        /*else if (29 == id) {
             Intent myIntent = new Intent(this, AnnotationMainActivity.class);
             startActivity(myIntent);
-        } else if (30 == id) {
+        }*/
+        else if (30 == id) {
             Intent myIntent = new Intent(this, ActivityTestMainActivity.class);
             startActivity(myIntent);
         } else if (31 == id) {

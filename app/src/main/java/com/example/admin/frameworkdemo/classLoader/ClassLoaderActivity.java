@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 import dalvik.system.DexClassLoader;
+import timber.log.Timber;
 
 /**
  * @author yanjim
@@ -25,7 +26,14 @@ public class ClassLoaderActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.load_class_activity);
-        loadClass();
+        //PathClassLoader
+        ClassLoader classLoader = getClassLoader();
+        while (classLoader != null) {
+            Timber.d("classLoader: " + classLoader);
+            //BootClassLoader
+            classLoader = classLoader.getParent();
+        }
+        //loadClass();
     }
 
     private void loadClass(){

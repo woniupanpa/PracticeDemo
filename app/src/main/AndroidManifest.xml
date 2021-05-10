@@ -55,7 +55,6 @@
         <activity android:name=".StrategyModel.StrategyMainActivity"></activity>
         <activity android:name=".ThreadPool.ThreadPoolMainActivity"></activity>
         <activity android:name=".ViewGroupSelfDef.ViewGroupSelfDefMainActivity"></activity>
-        <activity android:name=".Annotation.AnnotationMainActivity"></activity>
         <activity android:name=".ActivityTest.ActivityTestMainActivity"></activity>
         <activity android:name=".ActivityTest.Activity2"
             android:theme="@android:style/Theme.Translucent"></activity>
