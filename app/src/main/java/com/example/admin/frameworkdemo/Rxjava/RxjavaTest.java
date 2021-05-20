@@ -1,5 +1,6 @@
 package com.example.admin.frameworkdemo.Rxjava;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.util.Log;
@@ -26,16 +27,15 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Action;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
+import timber.log.Timber;
 
 
 public class RxjavaTest {
-    private Context context;
     private final static String TAG = RxjavaTest.class.getSimpleName();
     private Disposable retryDispose;
     private int count = 1;
 
     public RxjavaTest(Context mContext) {
-        context = mContext;
     }
 
     public void ObservableTest() {
@@ -67,7 +67,7 @@ public class RxjavaTest {
                 if(i == 3){
                     mDisposable.dispose();
                 }*/
-                Log.d(TAG, "onNext" + integer);
+                Timber.d("onNext" + integer);
             }
 
             @Override
@@ -93,7 +93,10 @@ public class RxjavaTest {
     }
 
 
+    @SuppressLint("CheckResult")
     public void SingleTest() {
+        Completable.complete()
+                .subscribe(()->Timber.d("test"));
     }
 
     public Completable andThen1() {
