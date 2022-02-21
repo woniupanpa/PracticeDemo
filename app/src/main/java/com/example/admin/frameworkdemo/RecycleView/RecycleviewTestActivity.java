@@ -27,6 +27,7 @@ public class RecycleviewTestActivity extends Activity {
     private List<String> mDatas;
     private HomeAdapter mAdapter;
     MyItemOnclickListener mMyItemOnClickListener;
+    private static final String TAG = "RecycleviewTestActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState)
@@ -38,9 +39,9 @@ public class RecycleviewTestActivity extends Activity {
         mRecyclerView = (RecyclerView) findViewById(R.id.id_recyclerview);
         mRecyclerView.setAdapter(mAdapter = new HomeAdapter());
         //垂直
-       /* mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL_LIST));*/
+                DividerItemDecoration.VERTICAL_LIST));
 
         mAdapter.setItemOnClickListener(new MyItemOnclickListener() {
             @Override
@@ -50,7 +51,7 @@ public class RecycleviewTestActivity extends Activity {
         });
 
         //水平
-        /*mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+      /*  mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL_LIST));*/
         //grid
@@ -58,8 +59,8 @@ public class RecycleviewTestActivity extends Activity {
         mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));*/
 
         //瀑布流
-        mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
-        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
+       /* mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
+        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));*/
     }
 
     protected void initData(){
@@ -80,6 +81,7 @@ public class RecycleviewTestActivity extends Activity {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType)
         {
+            Log.d(TAG, "onCreateViewHolder--->");
             MyViewHolder holder = new MyViewHolder(LayoutInflater.from(RecycleviewTestActivity.this).inflate(R.layout.recycleview_item_home, parent,
                     false), mMyItemOnClickListener);
             return holder;
@@ -89,11 +91,12 @@ public class RecycleviewTestActivity extends Activity {
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
+            Log.d(TAG, "onBindViewHolder--->" + position);
             //瀑布流在该函数里面设置随意高度
-            Random random = new Random();
+           /* Random random = new Random();
             ViewGroup.LayoutParams layoutParams = ((MyViewHolder)holder).tv.getLayoutParams();
             layoutParams.height=random.nextInt(200)+50;
-            ((MyViewHolder)holder).tv.setLayoutParams(layoutParams);
+            ((MyViewHolder)holder).tv.setLayoutParams(layoutParams);*/
             ((MyViewHolder)holder).tv.setText(mDatas.get(position)+position);
         }
 

@@ -26,7 +26,7 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
     //画笔
     private Paint paint;
 
-    //view的宽度和高度
+    //内圆直径
     private int viewWidth;
     private int viewHeigth;
 
@@ -147,14 +147,14 @@ public class CircleImageView extends android.support.v7.widget.AppCompatImageVie
         loadImage();
 
         if (image != null) {
-            //拿到最小的值(这里我们要取到最小的)
+            //拿到最小的值(这里我们要取到最小的),即内圆的直径
             int min = Math.min(viewWidth, viewHeigth);
 
             int circleCenter = min / 2;//内圆半径
 
             image = Bitmap.createScaledBitmap(image, min, min, false);
 
-            //画圆,参数：圆心X， 圆心y，半径，画笔
+            //画圆,参数：圆心X， 圆心y，半径，画笔，outCircleWidth：外圆环形宽度
             canvas.drawCircle(circleCenter + outCircleWidth, circleCenter + outCircleWidth, circleCenter + outCircleWidth, paint);
 
             //画图像

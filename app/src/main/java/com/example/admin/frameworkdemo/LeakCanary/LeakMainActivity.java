@@ -12,6 +12,14 @@ public class LeakMainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.leak_activity_main);
         TextView textView = (TextView) findViewById(R.id.myview);
-        TestLeakSingleton.getInstance(this).setTvAppName(textView);
+        //TestLeakSingleton.getInstance(this).setTvAppName(textView);
+        //stringAppend();
+    }
+    
+    private void stringAppend(){
+        String str = "";
+        for(int i=0; i< 1000; i++) {
+            str += i;
+        }
     }
 }

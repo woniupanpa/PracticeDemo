@@ -1,1 +1,6 @@
+include ':pluginTestLibraryTest2'
+include ':pluginTestLibrary'
+include ':subAppLibrary'
+include ':mylibrary2'
+include ':mylibrary'
 include ':app'

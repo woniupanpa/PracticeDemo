@@ -34,9 +34,11 @@ import com.example.admin.frameworkdemo.Proxy.proxy;
 import com.example.admin.frameworkdemo.ProxyModel.ProxyMainActivity;
 import com.example.admin.frameworkdemo.RecycleView.RecycleviewTestActivity;
 import com.example.admin.frameworkdemo.Reflect.ReflectMainActivity;
-import com.example.admin.frameworkdemo.Rxjava.RxjavaTestActivity;
 import com.example.admin.frameworkdemo.ScrollerView.ScrollerMainActivity;
 import com.example.admin.frameworkdemo.SelfdefineView.SelfdefineViewMainActivity;
+import com.example.admin.frameworkdemo.SelfdefineView.Test2Activity;
+import com.example.admin.frameworkdemo.SelfdefineView.Test3Activity;
+import com.example.admin.frameworkdemo.SelfdefineView.Test4Activity;
 import com.example.admin.frameworkdemo.SelfdefineView.tickview.TickviewMainActivity;
 import com.example.admin.frameworkdemo.Service.ServiceTestActivity;
 import com.example.admin.frameworkdemo.SocketTest.SocketMainActivity;
@@ -45,6 +47,8 @@ import com.example.admin.frameworkdemo.ThreadPool.ThreadPoolMainActivity;
 import com.example.admin.frameworkdemo.ViewGroupSelfDef.ViewGroupSelfDefMainActivity;
 import com.example.admin.frameworkdemo.ViewPager.ViewPagerMainActivity;
 import com.example.admin.frameworkdemo.classLoader.ClassLoaderActivity;
+import com.example.admin.frameworkdemo.leaktest.LeakTestActivity;
+import com.example.admin.frameworkdemo.lifecycle.TestActivityA;
 import com.example.admin.frameworkdemo.ui.dialog.InputPasswordDialogTestActivity;
 
 import java.io.File;
@@ -61,12 +65,12 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     private String[] data = {"Rxjava", "GreenDao", "Picasso", "RecycleView",
             "自定义view", "XML解析", "自定义写字板", "Fragment", "OnTouchAndOnGesture",
             "手势解锁", "MVP模式", "DrawLayout", "NavigationView", "EventBus",
-            "ButterKnife", "LeakCanary", "AIDLService", "Service", "ScrollerView",
-            "ViewPager", "Dispatch", "LaunchMode", "ObserverMode", "ProxyModel",
+            "ButterKnife", "15LeakCanary", "AIDLService", "Service", "ScrollerView",
+            "ViewPager", "Dispatch", "21LaunchMode", "ObserverMode", "ProxyModel",
             "Reflect", "策略模式", "OKHttp", "ThreadPool", "ViewGroup自定义",
             "Annotation(注解)", "ActivityTest", "Parcelable序列化", "dataBinding",
             "ConstraintLayout", "34:Socket", "35:反射＼代理模式", "36:tickView",
-            "37:classLoader", "38:inputPwdDialog"};
+            "37:classLoader", "38:inputPwdDialog", "39:leakTest", "40:lifeCycleTest"};
     private static final String TAG = MainActivity.class.getSimpleName();
 
     @Override
@@ -85,8 +89,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d(TAG, "id--->" + id);
         //Rxjava
         if (0 == id) {
-            Intent rxIntent = new Intent(this, RxjavaTestActivity.class);
-            startActivity(rxIntent);
+            while (true){
+
+            }
+           /* Intent rxIntent = new Intent(this, RxjavaTestActivity.class);
+            startActivity(rxIntent);*/
             //GreenDao
         } else if (1 == id) {
             Intent grIntent = new Intent(this, GreenDaoTestActivity.class);
@@ -98,7 +105,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             Intent reIntent = new Intent(this, RecycleviewTestActivity.class);
             startActivity(reIntent);
         } else if (4 == id) {//自定义View
-            Intent seIntent = new Intent(this, SelfdefineViewMainActivity.class);
+            //Intent seIntent = new Intent(this, SelfdefineViewMainActivity.class);
+            //Intent seIntent = new Intent(this, Test2Activity.class);
+            //Intent seIntent = new Intent(this, Test3Activity.class);
+            Intent seIntent = new Intent(this, Test4Activity.class);
             startActivity(seIntent);
         } else if (5 == id) {//XML解析
             Intent paIntent = new Intent(this, PaseXmlTestActivity.class);
@@ -225,6 +235,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
             startActivity(new Intent(this, ClassLoaderActivity.class));
         }else if(38 == id){
             startActivity(new Intent(this, InputPasswordDialogTestActivity.class));
+        }else if(39 == id){
+            startActivity(new Intent(this, LeakTestActivity.class));
+        }else if(40 == id){
+            startActivity(new Intent(this, TestActivityA.class));
         }
     }
 }

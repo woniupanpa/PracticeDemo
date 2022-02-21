@@ -4,6 +4,9 @@ apply plugin: 'org.greenrobot.greendao'
 
 /************ ButterKnife **************/
 /*apply plugin: 'com.jakewharton.butterknife'*/
+apply plugin:DateAndTimePlugin
+//apply plugin: 'com.yjm.plugin'
+apply plugin: "org.gradle.crypto.checksum"
 
 android {
     compileSdkVersion 28
@@ -42,6 +45,39 @@ android {
         exclude 'META-INF/rxjava.properties'
     }
 }
+
+
+
+buildscript{
+    repositories{
+        jcenter()
+        maven{
+            url uri('../repo')
+        }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies{
+        classpath 'com.android.tools.build:gradle:2.1.0'
+        classpath 'com.yjm.plugin:test:1.0.0'
+        classpath "gradle.plugin.org.gradle.crypto:checksum:1.0.2"
+    }
+}
+
+allprojects {
+    repositories {
+        maven {
+            // 指定本地仓库路径
+            url uri('..repo/')
+        }
+    }
+}
+
+task myTask {
+    println "do task"
+}
+
 
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
@@ -100,4 +136,29 @@ dependencies {
 
     /***************   Timber     ************/
     implementation 'com.jakewharton.timber:timber:4.7.1'
+}
+
+dateAndTime {
+    timeFormat = 'HH:mm:ss.SSS'
+    dateFormat = 'MM/dd/yyyy'
+}
+
+class DateAndTimePlugin implements Plugin<Project>{
+    void apply(Project project) {
+
+        project.extensions.create("dateAndTime", DateAndTimePluginExtension)
+
+        project.task('showTime') << {
+            println "Current time is " + new Date().format(project.dateAndTime.timeFormat)
+        }
+
+        project.tasks.create('showDate') << {
+            println "Current date is " + new Date().format(project.dateAndTime.dateFormat)
+        }
+    }
+}
+
+class DateAndTimePluginExtension {
+    String timeFormat = "MM/dd/yyyyHH:mm:ss.SSS"
+    String dateFormat = "yyyy-MM-dd"
 }
