@@ -6,6 +6,7 @@ import java.util.Random;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.os.SystemClock;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -55,8 +56,8 @@ public class RecycleviewTestActivity extends Activity {
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this,
                 DividerItemDecoration.HORIZONTAL_LIST));*/
         //grid
-        /*mRecyclerView.setLayoutManager(new GridLayoutManager(this,9));
-        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));*/
+        mRecyclerView.setLayoutManager(new GridLayoutManager(this,9));
+        mRecyclerView.addItemDecoration(new DividerGridItemDecoration(this));
 
         //瀑布流
        /* mRecyclerView.setLayoutManager(new StaggeredGridLayoutManager(4, StaggeredGridLayoutManager.VERTICAL));
@@ -92,6 +93,7 @@ public class RecycleviewTestActivity extends Activity {
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position)
         {
             Log.d(TAG, "onBindViewHolder--->" + position);
+            SystemClock.sleep(7);
             //瀑布流在该函数里面设置随意高度
            /* Random random = new Random();
             ViewGroup.LayoutParams layoutParams = ((MyViewHolder)holder).tv.getLayoutParams();

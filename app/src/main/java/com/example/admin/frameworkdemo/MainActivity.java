@@ -34,6 +34,7 @@ import com.example.admin.frameworkdemo.Proxy.proxy;
 import com.example.admin.frameworkdemo.ProxyModel.ProxyMainActivity;
 import com.example.admin.frameworkdemo.RecycleView.RecycleviewTestActivity;
 import com.example.admin.frameworkdemo.Reflect.ReflectMainActivity;
+import com.example.admin.frameworkdemo.Rxjava.RxjavaTestActivity;
 import com.example.admin.frameworkdemo.ScrollerView.ScrollerMainActivity;
 import com.example.admin.frameworkdemo.SelfdefineView.SelfdefineViewMainActivity;
 import com.example.admin.frameworkdemo.SelfdefineView.Test2Activity;
@@ -89,11 +90,11 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
         Log.d(TAG, "id--->" + id);
         //Rxjava
         if (0 == id) {
-            while (true){
+           /* while (true){
 
-            }
-           /* Intent rxIntent = new Intent(this, RxjavaTestActivity.class);
-            startActivity(rxIntent);*/
+            }*/
+            Intent rxIntent = new Intent(this, RxjavaTestActivity.class);
+            startActivity(rxIntent);
             //GreenDao
         } else if (1 == id) {
             Intent grIntent = new Intent(this, GreenDaoTestActivity.class);

@@ -34,12 +34,21 @@ public class RxjavaTest {
     private final static String TAG = RxjavaTest.class.getSimpleName();
     private Disposable retryDispose;
     private int count = 1;
+    int countA = 0;
 
     public RxjavaTest(Context mContext) {
     }
 
     public void ObservableTest() {
-        Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
+        Single.fromCallable(()->{
+            return 5;
+        }).doOnSuccess(integer -> {
+            integer++;
+        }).flatMapCompletable(integer -> {
+            Log.d(TAG, "aa" + integer);
+            return Completable.complete();
+        }).subscribe();
+       /* Observable<Integer> observable = Observable.create(new ObservableOnSubscribe<Integer>() {
             @Override
             public void subscribe(ObservableEmitter<Integer> emitter) throws Exception {
                 //Log.d(TAG, "ObservableEmitter");
@@ -50,7 +59,17 @@ public class RxjavaTest {
                 emitter.onNext(15);
                 emitter.onComplete();
             }
+        });*/
+
+        Observable<Integer> observable = Observable.create(emitter -> {
+            /*emitter.onNext(12);
+            emitter.onNext(13);
+            emitter.onNext(14);*/
+            //emitter.onNext(15);
+            //emitter.onError(new Throwable("aa"));
+            emitter.onComplete();
         });
+
         Observer<Integer> observer = new Observer<Integer>() {
             private int i;
             private Disposable mDisposable;
@@ -81,22 +100,37 @@ public class RxjavaTest {
             }
         };
 
-        observable.subscribe(observer);
-        observable.doOnSubscribe(disposable -> {
+        Completable.fromObservable(observable)
+                .doOnTerminate(() -> {
+                    Timber.d("doOnTerminate");
+                })
+                .subscribe(() -> {
+                    Timber.d("aaaaaaaaaaaa");
+                });
+       /* observable.doOnComplete(()->{
+            Timber.d("doOnComplete");
+        }).doOnTerminate(()->{
+            Timber.d("doOnTerminate");
+        }).subscribe(o->{
+            Timber.d(o.toString());
+        }, throwable -> {
+            Timber.d("error-->" + throwable.getMessage());
+        });*/
+        /*observable.doOnSubscribe(disposable -> {
                     Log.d(TAG, "doOnSubscribe");
                 }
         ).doOnComplete(() -> {
             Log.d(TAG, "doOnComplete");
         }).doOnNext((C) -> {
             Log.d(TAG, "doNext" + C);
-        }).subscribe(observer);
+        }).subscribe(observer);*/
     }
 
 
     @SuppressLint("CheckResult")
     public void SingleTest() {
         Completable.complete()
-                .subscribe(()->Timber.d("test"));
+                .subscribe(() -> Timber.d("test"));
     }
 
     public Completable andThen1() {
@@ -146,8 +180,29 @@ public class RxjavaTest {
         });
     }
 
+    private Completable completableTest1() {
+        return Completable.fromCallable(() -> {
+            Timber.d("bbbbbbbbbbbbbbbb");
+            return Completable.complete();
+        });
+    }
+
     public void CompletableTest() {
-        Completable.create(new CompletableOnSubscribe() {
+
+        Completable.complete()
+                .andThen(Completable.fromCallable(() -> {
+                    countA += 1;
+                    return Completable.complete();
+                }))
+                .andThen(Completable.fromCallable(() -> {
+                    Timber.d("aaaaaaaaacountA " + countA);
+                    return Completable.complete();
+                }))
+                .subscribe(() -> {
+                    Timber.d("bbbbbbbbbcountA " + countA);
+                });
+
+        /*Completable.create(new CompletableOnSubscribe() {
             @Override
             public void subscribe(CompletableEmitter emitter) throws Exception {
                 emitter.onComplete();
@@ -173,7 +228,7 @@ public class RxjavaTest {
                     public void onError(Throwable e) {
                         Log.d(TAG, "CompletableTestonError");
                     }
-                });
+                });*/
     }
 
     public void ComplicatedTest() {
@@ -301,8 +356,39 @@ public class RxjavaTest {
         observable.retry(2).subscribe(observer);
     }
 
+    private Observable doRetry(Observable<Throwable> throwableObservable, int retryTimes) {
+        return throwableObservable
+                .zipWith(Observable.range(1, retryTimes + 1), (throwable, retryCount) -> {
+                    Log.d(TAG, "in zip:" + retryCount);
+                    return delayAndCheckCancel(5, 1)
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .doOnComplete(() -> {
+                                Log.d(TAG, "retry again" + retryCount);
+                            });
+                })
+                .flatMap(x -> {
+                    return x;
+                });
+    }
+
     public void retryWhenTest() {
-        Observer<Integer> observer = new Observer<Integer>() {
+
+        /*Observable.create(emitter->{
+            Log.d(TAG, "执行这个");
+            emitter.onError(new Throwable("出错了"));
+        }).retryWhen(throwableObservable -> {
+            return doRetry(throwableObservable, 2);
+        }).doOnSubscribe(disposable->{
+            Log.d(TAG, "onSubscribe");
+        }).doOnError(throwable->{
+            Log.d(TAG, "onError" + throwable);
+        }).doOnComplete(()->{
+            Log.d(TAG, "onComplete");
+        }).subscribe();*/
+
+
+
+        /*Observer<Integer> observer = new Observer<Integer>() {
             private int i;
             private Disposable mDisposable;
 
@@ -341,7 +427,7 @@ public class RxjavaTest {
                 .retryWhen(throwableObservable -> {
                     return doRetry(throwableObservable, 5);
                 })
-                .subscribe(observer);
+                .subscribe(observer);*/
 
        /* observable.retryWhen(throwableObservable -> {
             return throwableObservable.zipWith(Observable.range(3, 3), (throwable, integer) -> {
@@ -353,39 +439,27 @@ public class RxjavaTest {
             });
         }).subscribe(observer);*/
 
-        /*Completable.complete()
-                .doOnComplete(()->{
-                    Log.d(TAG, "retryWhenStart--->");
-                })
-                .andThen(retryWehnTest1())
+        Completable.fromCallable(() -> {
+            Log.d(TAG, "aaaaaaaaaaaaaaaaa");
+            return Completable.complete();
+        }).doOnComplete(() -> {
+            Log.d(TAG, "retryWhenStart--->");
+        }).andThen(Completable.fromCallable(() -> {
+            countA = 2;
+            return Completable.complete();
+        })).andThen(retryWehnTest1())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnSubscribe(disposable -> {
                     retryDispose = disposable;
                 })
-                .subscribe(()->{
+                .subscribe(() -> {
                     Log.d(TAG, "retryWhenSuccess--->");
-                },throwable -> {
+                }, throwable -> {
                     Log.d(TAG, "retryWhenError--->");
-                });*/
+                });
     }
 
-    private Observable doRetry(Observable<Throwable> throwableObservable, int retryTimes) {
-        return throwableObservable
-                .zipWith(Observable.range(1, retryTimes + 1), (throwable, retryCount) -> {
-                    Log.d(TAG, "in zip:" + retryCount);
-                    return delayAndCheckCancel(5, 1)
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .doOnComplete(() -> {
-                                Log.d(TAG, "retry again" + retryCount);
-                            });
-                })
-                //.flatMap(x -> x);
-        .flatMap(x->{
-            return x;
-           // return Observable.just(x);
-        });
-    }
 
     private Observable delayAndCheckCancel(int timeout, int period) {
         Log.d(TAG, "delayAndCheckCancel" + timeout);
@@ -400,10 +474,16 @@ public class RxjavaTest {
     }
 
     public Completable retryWehnTest1() {
-        return Completable.complete()
-                .andThen(retryWehnTest2())
+        Log.d(TAG, "vvvvvvvvvvvvvvvvvv");
+        countA += 1;
+        return Completable.fromCallable(() -> {
+            Log.d(TAG, "uuuuuuuuuuuu");
+            countA += 1;
+            return Completable.complete();
+        }).andThen(retryWehnTest2())
                 .andThen(getSingleTest())
                 .flatMapCompletable(integer -> {
+                    Log.d(TAG, "countA--->" + countA);
                     Log.d(TAG, "retryWehnTest1--->" + "11111111111");
                     return Completable.error(new Throwable("error"));
                 }).retryWhen(throwableFlowable -> throwableFlowable.flatMap(throwable -> handleError(throwable)));
@@ -412,6 +492,7 @@ public class RxjavaTest {
     public Completable retryWehnTest2() {
         return Completable.fromCallable(() -> {
             Log.d(TAG, "wwwwwwwwwww" + count);
+            countA += 1;
             return Completable.complete();
         });
     }
